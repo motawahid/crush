@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>اكتب رسالة سرية</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      direction: rtl;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      width: 100%;
+      background: #1abc9c;
+      color: white;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>💌 اكتب رسالة خفية</h2>
+  <textarea id="message" placeholder="اكتب رسالتك هنا..."></textarea>
+  <button onclick="sendMessage()">إرسال</button>
+  <p id="status"></p>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCTQfYyfDtydUDEYF8lQm0M-PdMiv8ExC8",
+    authDomain: "crush-messages.firebaseapp.com",
+    databaseURL: "https://crush-messages-default-rtdb.firebaseio.com",
+    projectId: "crush-messages",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  function sendMessage() {
+    const msg = document.getElementById("message").value;
+    if (msg.trim() === "") return;
+
+    database.ref("messages").push({
+      text: msg,
+      time: new Date().toISOString()
+    });
+
+    document.getElementById("message").value = "";
+    document.getElementById("status").innerText = "✅ تم إرسال الرسالة بنجاح";
+  }
+</script>
+
+</body>
+</html>
