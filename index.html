@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>اكتب رسالة سرية</title>
+  <title/>Golina 3la crush dyalkkk</title>
   <style>
     body {
       font-family: Arial;
@@ -43,9 +43,10 @@
 <body>
 
 <div class="box">
-  <h2>💌 اكتب رسالة خفية</h2>
-  <textarea id="message" placeholder="اكتب رسالتك هنا..."></textarea>
-  <button onclick="sendMessage()">إرسال</button>
+  <h2>💌 Golina 3la crush dyalkkkk</h2>
+  <p id="counter">📩 messages counter : 0</p> 
+  <textarea id="message" placeholder="Golina 3la crush dyalkkk..."></textarea>
+  <button onclick="sendMessage()">Send</button>
   <p id="status"></p>
 </div>
 
@@ -62,6 +63,25 @@
 
   firebase.initializeApp(firebaseConfig);
   const database = firebase.database();
+  counterRef.on("value", (snapshot) => {
+  const count = snapshot.exists() ? snapshot.numChildren() : 0;
+
+  document.getElementById("counter").innerText =
+    "📩 عدد الرسائل: " + count;
+
+  // 🔔 إشعار عند رسالة جديدة
+  if (count > lastCount && lastCount !== 0) {
+    if (Notification.permission === "granted") {
+      new Notification("💌 رسالة جديدة", {
+        body: "وصلك مسج جديد خفي",
+        icon: "https://cdn-icons-png.flaticon.com/512/732/732200.png"
+      });
+    }
+  }
+
+  lastCount = count;
+});
+
 
   function sendMessage() {
     const msg = document.getElementById("message").value;
